@@ -6,7 +6,7 @@ const height = +svg.attr('height');
 const render = (data) => {
     const xValue = (d) => d.Population; // Change to second column heading of csv
     const yValue = (d) => d.Country; // Change to first column heading of csv
-    const margin = { top: 80, bottom: 20, right: 35, left: 160 };
+    const margin = { top: 80, bottom: 70, right: 35, left: 160 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
@@ -25,17 +25,27 @@ const render = (data) => {
         .append('g')
         .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-    const xAxis = d3.axisBottom(xScale); // FIXME: tickFormat(format('.3s') is not working
+    const xAxis = d3
+        .axisBottom(xScale)
+        .tickSize(-innerHeight); // FIXME: tickFormat(format('.3s') is not working
 
     g.append('g')
         .call(d3.axisLeft(yScale))
         .selectAll('.domain, .tick line')
         .remove(); // country axis labels
-    g.append('g')
+
+    const xAxisG = g.append('g')
         .call(xAxis)
-        .attr('transform', `translate(0, ${innerHeight})`)
-        .select('.domain')
+        .attr('transform', `translate(0, ${innerHeight})`);
+
+    xAxisG.select('.domain')
         .remove(); // country axis labels; // population axis labels
+
+    xAxisG.append('text')
+        .attr('y', 45)
+        .attr('x', innerWidth/2)
+        .attr('fill', 'black')
+        .text('Population');
 
     g.selectAll('rect')
         .data(data)
@@ -46,7 +56,8 @@ const render = (data) => {
         .attr('height', yScale.bandwidth());
 
     g.append('text')
-        .text('Top ten Countries by Population 2021');
+        .attr('y', -10)
+        .text('Top Ten Countries by Population 2021');
 }; // function to render
 
 function barChart(file_name) {
