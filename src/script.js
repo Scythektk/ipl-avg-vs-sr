@@ -42,6 +42,7 @@ const render = (data) => {
         .remove(); // country axis labels; // population axis labels
 
     xAxisG.append('text')
+        .attr('class', 'axis-label')
         .attr('y', 45)
         .attr('x', innerWidth/2)
         .attr('fill', 'black')
@@ -56,8 +57,9 @@ const render = (data) => {
         .attr('height', yScale.bandwidth());
 
     g.append('text')
+        .attr('class', 'bar-title')
         .attr('y', -10)
-        .text('Top Ten Countries by Population 2021');
+        .text('Top Countries by Population 2021');
 }; // function to render
 
 function barChart(file_name) {
