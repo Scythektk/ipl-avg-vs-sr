@@ -3,7 +3,7 @@ body {
     margin: 0px;
 }
 
-rect {
+circle {
     fill: steelblue;
 }
 
@@ -14,7 +14,7 @@ text {
 
 .tick text{
     fill: #635F5D;
-    font-size: 1.6em;
+    font-size: 1.3em;
 }
 
 .tick line{

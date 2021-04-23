@@ -13,13 +13,14 @@ const render = (data) => {
     const xScale = d3
         .scaleLinear()
         .domain([0, d3.max(data, xValue)])
-        .range([0, innerWidth]); // define scale for data
+        .range([0, innerWidth])
+        .nice(); // define scale for data
 
     const yScale = d3
-        .scaleBand()
+        .scalePoint()
         .domain(data.map(yValue))
         .range([0, innerHeight])
-        .padding(0.1); // define width of bars (height for horizontal bar chart)
+        .padding(0.5); // define width of bars (height for horizontal scatter plot)
 
     const g = svg
         .append('g')
@@ -27,11 +28,14 @@ const render = (data) => {
 
     const xAxis = d3
         .axisBottom(xScale)
-        .tickSize(-innerHeight); // FIXME: tickFormat(format('.3s') is not working
+        .tickSize(-innerHeight);
+
+    const yAxis = d3.axisLeft(yScale)
+        .tickSize(-innerWidth);
 
     g.append('g')
-        .call(d3.axisLeft(yScale))
-        .selectAll('.domain, .tick line')
+        .call(yAxis)
+        .select('.domain')
         .remove(); // country axis labels
 
     const xAxisG = g.append('g')
@@ -44,17 +48,17 @@ const render = (data) => {
     xAxisG.append('text')
         .attr('class', 'axis-label')
         .attr('y', 45)
-        .attr('x', innerWidth/2)
+        .attr('x', innerWidth / 2)
         .attr('fill', 'black')
         .text('Population');
 
-    g.selectAll('rect')
+    g.selectAll('circle')
         .data(data)
         .enter()
-        .append('rect')
-        .attr('y', (d) => yScale(yValue(d)))
-        .attr('width', (d) => xScale(xValue(d)))
-        .attr('height', yScale.bandwidth());
+        .append('circle')
+        .attr('cy', (d) => yScale(yValue(d)))
+        .attr('cx', (d) => xScale(xValue(d)))
+        .attr('r', 12);
 
     g.append('text')
         .attr('class', 'bar-title')
@@ -65,12 +69,21 @@ const render = (data) => {
 function barChart(file_name) {
     d3.csv(`../data/${file_name}.csv`).then((data) => {
         data.forEach((d) => {
-            d.Population = +d.Population * 1000;
+            d.PLAYER = d.PLAYER;
+            d.Mat = +d.Mat;
+            d.Inns = +d.Inns;
+            d.Runs = +d.Runs;
+            d.Avg = +d.Avg;
+            d.SR = +d.SR;
+            d.Cent = +d.Cent;
+            d.HalfCent = +d.HalfCent;
+            d.Fours = +d.Fours;
+            d.Sixes = +d.Sixes;
         });
         render(data);
     });
 }
 
-barChart('population'); // Enter filename without extension
+barChart('auto-mpg'); // Enter filename without extension
 
 // To load different csv go to lines 7, 8, 45 and 51
