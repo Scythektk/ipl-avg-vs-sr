@@ -4,7 +4,7 @@ body {
 }
 
 circle {
-    fill: steelblue;
+    fill: rgba(180, 74, 70, 0.65);
 }
 
 text {
