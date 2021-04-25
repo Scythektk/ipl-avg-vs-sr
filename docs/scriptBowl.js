@@ -11,8 +11,8 @@ const render = (data) => {
     const innerHeight = height - margin.top - margin.bottom;
     const circleRadius = 10;
 
-    const xAxisLabel = 'Economy'
-    const yAxisLabel = 'Average';
+    const xAxisLabel = 'Average'
+    const yAxisLabel = 'Economy';
 
     const xScale = d3
         .scaleLinear()
