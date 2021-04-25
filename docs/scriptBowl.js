@@ -109,7 +109,7 @@ const render = (data) => {
         .text('IPL Bowlers: Economy vs Average');
 };
 
-function barChart(file_name) {
+function scatterPlot(file_name) {
     d3.csv(`../data/${file_name}.csv`).then((data) => {
         data.forEach((d) => {
             d.PLAYER = d.PLAYER;
@@ -127,6 +127,6 @@ function barChart(file_name) {
     });
 }
 
-barChart('iplBowlers'); // Enter filename without extension
+scatterPlot('iplBowlers'); // Enter filename without extension
 
 // To load different csv go to lines 7, 8, 45 and 51
