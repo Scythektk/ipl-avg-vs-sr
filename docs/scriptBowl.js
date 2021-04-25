@@ -22,8 +22,8 @@ const render = (data) => {
 
     const yScale = d3
         .scaleLinear()
-        .domain([d3.max(data, yValue) + 0.25, d3.min(data, yValue) - 0.25])
-        .range([0, innerHeight]) // define width of bars (height for horizontal scatter plot)
+        .domain([d3.min(data, yValue) - 0.25, d3.max(data, yValue) + 0.25])
+        .range([innerHeight, 0]) // define width of bars (height for horizontal scatter plot)
 
     const g = svg
         .append('g')
