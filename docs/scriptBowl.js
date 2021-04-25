@@ -4,7 +4,7 @@ const width = +svg.attr('width');
 const height = +svg.attr('height');
 
 const render = (data) => {
-    const xValue = (d) => d.SR; // Change to second column heading of csv
+    const xValue = (d) => d.Avg; // Change to second column heading of csv
     const yValue = (d) => d.Econ; // Change to first column heading of csv
     const margin = { top: 80, bottom: 50, right: 35, left: 150 };
     const innerWidth = width - margin.left - margin.right;
@@ -22,7 +22,7 @@ const render = (data) => {
 
     const yScale = d3
         .scaleLinear()
-        .domain([d3.max(data, yValue), d3.min(data, yValue) - 0.5])
+        .domain([d3.max(data, yValue) + 0.25, d3.min(data, yValue) - 0.25])
         .range([0, innerHeight]) // define width of bars (height for horizontal scatter plot)
 
     const g = svg
@@ -116,7 +116,6 @@ function barChart(file_name) {
             d.Mat = +d.Mat;
             d.Inns = +d.Inns;
             d.Ov = +d.Ov;
-            d.Runs = +d.Runs;
             d.Wkts = +d.Wkts;
             d.Avg = +d.Avg;
             d.Econ = +d.Econ;
