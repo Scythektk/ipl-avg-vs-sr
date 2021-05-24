@@ -1,5 +1,5 @@
 body {
-    overflow: hidden;
+    overflow: auto;
     margin: 0px;
 }
 
@@ -12,25 +12,40 @@ text {
     font-family: sans-serif;
 }
 
-.tick text{
-    fill: #635F5D;
+.tick text {
+    fill: #635f5d;
     font-size: 1.3em;
 }
 
-.tick line{
+.tick line {
     stroke: #c7c7c1;
 }
 
 .axis-label {
-    fill: #8E8883;
+    fill: #8e8883;
     font-size: 1.9em;
 }
 
 .bar-title {
     fill: #504d4c;
     font-size: 2.3em;
+    padding-bottom: 50px;
 }
 
-.link{
+.link {
     margin-right: 300px;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 100px;
+    height: auto;
+    font: 13px sans-serif;
+    color: rgb(103, 2, 2);
+    background-color: rgba(176, 214, 222, 0.79);
+    border-color: black;
+    border-radius: 3px;
+    border-width: 10px;
+    pointer-events: none;
 }

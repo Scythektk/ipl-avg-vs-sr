@@ -4,8 +4,8 @@ const width = +svg.attr('width');
 const height = +svg.attr('height');
 
 const render = (data) => {
-    const xValue = (d) => d.Avg; // Change to second column heading of csv
-    const yValue = (d) => d.Econ; // Change to first column heading of csv
+    const xValue = (d) => d.Avg;
+    const yValue = (d) => d.Econ;
     const margin = { top: 80, bottom: 50, right: 35, left: 150 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
@@ -66,7 +66,6 @@ const render = (data) => {
         .append("div")
         .attr('class', 'tooltip')
         .style('opacity', 0)
-        .style('background-color', 'white');
 
     var mouseover = function (event, d) {
         d3.select(this).transition()
@@ -77,10 +76,13 @@ const render = (data) => {
             .duration(100)
             .style('opacity', 1);
 
+        var left = d3.pointer(event)[0] + 30;
+        var top = d3.pointer(event)[1] + 50;
+    
         tooltip
-            .html('Player: ' + d.PLAYER)
-            .style('left', `${d3.pointer(event)[0]}px`)
-            .style('top', `${d3.pointer(event)[1]}px`)
+            .html(d.PLAYER + '<br/>Econ: ' + d.Econ + '<br/>Avg: ' + d.Avg)
+            .style('left', `${left}px`)
+            .style('top', `${top}px`);
     };
 
     var mouseout = function (d) {

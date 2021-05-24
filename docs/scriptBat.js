@@ -4,9 +4,9 @@ const width = +svg.attr('width');
 const height = +svg.attr('height');
 
 const render = (data) => {
-    const xValue = (d) => d.SR; // Change to second column heading of csv
-    const yValue = (d) => d.Avg; // Change to first column heading of csv
-    const margin = { top: 80, bottom: 50, right: 35, left: 150 };
+    const xValue = (d) => d.SR;
+    const yValue = (d) => d.Avg;
+    const margin = { top: 80 , bottom: 50, right: 35, left: 150 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
     const circleRadius = 10;
@@ -22,7 +22,7 @@ const render = (data) => {
 
     const yScale = d3
         .scaleLinear()
-        .domain([d3.min(data, yValue) - 2, d3.max(data, yValue)])
+        .domain([d3.min(data, yValue) - 2, d3.max(data, yValue) + 0.5])
         .range([innerHeight, 0]) // define width of bars (height for horizontal scatter plot)
 
     const g = svg
@@ -53,7 +53,7 @@ const render = (data) => {
         .attr('transform', `translate(0, ${innerHeight})`);
 
     xAxisG.select('.domain')
-        .remove();  // population axis labels
+        .remove();
 
     xAxisG.append('text')
         .attr('class', 'axis-label')
@@ -66,7 +66,6 @@ const render = (data) => {
         .append("div")
         .attr('class', 'tooltip')
         .style('opacity', 0)
-        .style('background-color', 'white');
 
     var mouseover = function (event, d) {
         d3.select(this).transition()
@@ -77,10 +76,13 @@ const render = (data) => {
             .duration(100)
             .style('opacity', 1);
 
+        var left = d3.pointer(event)[0] + 30;
+        var top = d3.pointer(event)[1] + 50;
+
         tooltip
-            .html('Player: ' + d.PLAYER)
-            .style('left', `${d3.pointer(event)[0]}px`)
-            .style('top', `${d3.pointer(event)[1]}px`)
+            .html(d.PLAYER + '<br/>Avg: ' + d.Avg + '<br/>SR: ' + d.SR)
+            .style('left', `${left}px`)
+            .style('top', `${top}px`);
     };
 
     var mouseout = function (d) {
@@ -105,7 +107,8 @@ const render = (data) => {
 
     g.append('text')
         .attr('class', 'bar-title')
-        .attr('y', -10)
+        .attr('y', -30)
+        .attr('padding', '10px')
         .text('IPL Batsmen: Avg vs SR');
 };
 
