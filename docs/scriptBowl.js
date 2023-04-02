@@ -70,7 +70,7 @@ const render = (data) => {
     var mouseover = function (event, d) {
         d3.select(this).transition()
             .duration('100')
-            .attr("r", circleRadius + 3);
+            .attr("r", circleRadius*1.2);
 
         tooltip.transition()
             .duration(100)
@@ -80,9 +80,10 @@ const render = (data) => {
         var top = d3.pointer(event)[1] + 50;
     
         tooltip
-            .html(d.PLAYER + '<br/>Econ: ' + d.Econ + '<br/>Avg: ' + d.Avg)
+            .html(d.PLAYER + '<br/>Mat: ' + d.Mat + '<br/>Econ: ' + d.Econ + '<br/>Avg: ' + d.Avg)
             .style('left', `${left}px`)
-            .style('top', `${top}px`);
+            .style('top', `${top}px`)
+            .style('padding', '5px');
     };
 
     var mouseout = function (d) {
